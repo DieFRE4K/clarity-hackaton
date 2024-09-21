@@ -1,10 +1,14 @@
-(define-map Counters principal uint)
-
-(define-read-only (get-count (who principal))
-  (default-to u0 (map-get? Counters who))
+;; A read-only function that returns a message
+(define-read-only (say-hi)
+  (ok "Hello World")
 )
 
-(define-public (count-up)
-  (ok (map-set Counters tx-sender (+ (get-count tx-sender) u1)))
+;; A read-only function that returns an input number
+(define-read-only (echo-number (val int))
+  (ok val)
 )
 
+;; A public function that conditionally returns an ok or an error
+(define-public (check-it (flag bool))
+  (if flag (ok 1) (err u100))
+)
